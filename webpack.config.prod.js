@@ -1,29 +1,16 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
+const base = require("./webpack.config.base.js");
 
 module.exports = {
-  mode: "production", // 打包模式 development production
-  entry: "./src/index.js", // js入口
-  output: {
-    // 文件输出
-    filename: "index.[contenthash].js",
-  },
-  devtool: "inline-source-map",
-  devServer: {
-    contentBase: "./dist",
-  },
+  ...base,
+  mode: "production",
   plugins: [
-    new HtmlWebpackPlugin({
-      title: "production",
-      template: "src/assets/index.html", // 引入html
-    }),
+    ...base.plugins,
     new MiniCssExtractPlugin({
-      // 类似于 webpackOptions.output 中的选项
-      // 所有选项都是可选的
       filename: "[name].[contenthash].css",
       chunkFilename: "[id].[contenthash].css",
-      ignoreOrder: false, // 忽略有关顺序冲突的警告
+      ignoreOrder: false,
     }),
   ],
   module: {
