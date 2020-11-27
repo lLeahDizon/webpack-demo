@@ -1,10 +1,17 @@
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 var path = require("path");
 
 module.exports = {
-  mode: "production",
-  entry: "./src/index.js",
+  mode: "development", // 打包模式 development production
+  entry: "./src/index.js", // js入口
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "main.bundle.js",
+    // 文件输出
+    filename: "index.[contenthash].js",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Lemon",
+      template: "src/assets/index.html",
+    }),
+  ],
 };
