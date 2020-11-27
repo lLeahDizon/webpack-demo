@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
 module.exports = {
-  mode: "development", // 打包模式 development production
+  mode: "production", // 打包模式 development production
   entry: "./src/index.js", // js入口
   output: {
     // 文件输出
@@ -15,7 +15,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Development",
+      title: "production",
       template: "src/assets/index.html", // 引入html
     }),
     new MiniCssExtractPlugin({
@@ -30,7 +30,17 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"], // 引入css
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // 你可以在这里指定特定的 publicPath
+              // 默认情况下使用 webpackOptions.output 中的 publicPath
+              publicPath: "../",
+            },
+          },
+          "css-loader",
+        ],
       },
     ],
   },
