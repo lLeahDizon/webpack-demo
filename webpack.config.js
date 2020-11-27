@@ -11,7 +11,15 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Lemon",
-      template: "src/assets/index.html",
+      template: "src/assets/index.html", // 引入html
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"], // 引入css
+      },
+    ],
+  },
 };
