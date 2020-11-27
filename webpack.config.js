@@ -1,5 +1,6 @@
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
 
 module.exports = {
   mode: "development", // 打包模式 development production
@@ -17,12 +18,30 @@ module.exports = {
       title: "Development",
       template: "src/assets/index.html", // 引入html
     }),
+    new MiniCssExtractPlugin({
+      // 类似于 webpackOptions.output 中的选项
+      // 所有选项都是可选的
+      filename: "[name].[contenthash].css",
+      chunkFilename: "[id].[contenthash].css",
+      ignoreOrder: false, // 忽略有关顺序冲突的警告
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"], // 引入css
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // 你可以在这里指定特定的 publicPath
+              // 默认情况下使用 webpackOptions.output 中的 publicPath
+              publicPath: "../",
+            },
+          },
+          "css-loader",
+        ],
+        // use: ["style-loader", "css-loader"], // 引入css
       },
     ],
   },
