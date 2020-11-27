@@ -8,9 +8,13 @@ module.exports = {
     // 文件输出
     filename: "index.[contenthash].js",
   },
+  devtool: "inline-source-map",
+  devServer: {
+    contentBase: "./dist",
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Lemon",
+      title: "Development",
       template: "src/assets/index.html", // 引入html
     }),
   ],
