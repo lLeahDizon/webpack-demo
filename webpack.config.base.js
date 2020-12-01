@@ -16,6 +16,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+      },
+      {
         test: /\.styl$/,
         loader: ["style-loader", "css-loader", "stylus-loader"], // compiles Styl to CSS
       },
